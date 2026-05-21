@@ -745,7 +745,7 @@ themeBtn.addEventListener(
 
     localStorage.setItem(
       "darkMode",
-      !darkMode
+      (!darkMode).toString()
     );
 
     applyTheme();
