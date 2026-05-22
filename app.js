@@ -212,6 +212,53 @@ function startReader() {
     fontSize + "%"
   );
 
+
+
+
+
+  
+  rendition.themes.register(
+  "light",
+  {
+    body: {
+      background: "#ffffff",
+      color: "#111111",
+      padding: "20px",
+      "line-height": "1.7",
+      "font-family":
+        "Arial, sans-serif"
+    },
+
+    a: {
+      color: "#1565c0"
+    }
+  }
+);
+
+rendition.themes.register(
+  "dark",
+  {
+    body: {
+      background: "#111111",
+      color: "#ffffff",
+      padding: "20px",
+      "line-height": "1.7",
+      "font-family":
+        "Arial, sans-serif"
+    },
+
+    a: {
+      color: "#4dabff"
+    }
+  }
+);
+
+
+
+
+
+  
+
   applyTheme();
 
   setupNavigationZones();
@@ -570,6 +617,48 @@ function setupNavigationZones() {
 
 }
 
+
+/* =========================
+   THEME
+========================= */
+
+function applyTheme() {
+
+  const darkMode =
+    localStorage.getItem(
+      "darkMode"
+    ) === "true";
+
+  document.body.classList.toggle(
+    "dark",
+    darkMode
+  );
+
+  themeBtn.textContent =
+    darkMode
+      ? "🌙"
+      : "☀️";
+
+  bottomThemeBtn.textContent =
+    darkMode
+      ? "🌙"
+      : "☀️";
+
+  if (!rendition)
+    return;
+
+  rendition.themes.select(
+    darkMode
+      ? "dark"
+      : "light"
+  );
+
+}
+
+
+
+
+/* =============
 function applyTheme() {
 
   const darkMode =
@@ -612,11 +701,12 @@ function applyTheme() {
   }
 
 }
+/* =============
 
 
 /* =============
    SEARCH
-============= */
+/* =============
 
 async function searchBook(
   query
@@ -816,6 +906,9 @@ menuBtn.addEventListener(
   }
 );
 
+
+
+
 themeBtn.addEventListener(
   "click",
   () => {
@@ -834,6 +927,9 @@ themeBtn.addEventListener(
 
   }
 );
+
+
+
 
 nextPage.addEventListener(
   "click",
