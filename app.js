@@ -587,41 +587,71 @@ function applyTheme() {
     darkMode
   );
 
-  if (rendition) {
+  /* UPDATE ICONS */
 
-    rendition.themes.default({
+  themeBtn.textContent =
+    darkMode
+      ? "🌙"
+      : "☀️";
 
-      body: {
+  bottomThemeBtn.textContent =
+    darkMode
+      ? "🌙"
+      : "☀️";
 
-        background:
-          darkMode
-            ? "#111"
-            : "#fff",
+  /* SAFETY */
 
-        color:
-          darkMode
-            ? "#fff"
-            : "#000",
+  if (!rendition)
+    return;
 
-        padding: "20px",
+  /* FORCE EPUB REFRESH */
 
-        "line-height": "1.7",
+  rendition.themes.default({
 
-        "font-family":
-          "Arial, sans-serif"
+    body: {
 
-      }
+      background:
+        darkMode
+          ? "#111111"
+          : "#ffffff",
 
-    });
+      color:
+        darkMode
+          ? "#ffffff"
+          : "#111111",
 
-  }
+      padding: "20px",
+
+      "line-height": "1.7",
+
+      "font-family":
+        "Arial, sans-serif"
+
+    },
+
+    a: {
+
+      color:
+        darkMode
+          ? "#4dabff"
+          : "#1565c0"
+
+    }
+
+  });
+
+  /* RE-APPLY FONT SIZE */
+
+  rendition.themes.fontSize(
+    fontSize + "%"
+  );
 
 }
 
 
 /* =============
    SEARCH
-/* =============
+============= */
 
 async function searchBook(
   query
