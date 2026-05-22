@@ -210,54 +210,7 @@ function startReader() {
 
   rendition.themes.fontSize(
     fontSize + "%"
-  );
-
-
-
-
-
-  
-  rendition.themes.register(
-  "light",
-  {
-    body: {
-      background: "#ffffff",
-      color: "#111111",
-      padding: "20px",
-      "line-height": "1.7",
-      "font-family":
-        "Arial, sans-serif"
-    },
-
-    a: {
-      color: "#1565c0"
-    }
-  }
-);
-
-rendition.themes.register(
-  "dark",
-  {
-    body: {
-      background: "#111111",
-      color: "#ffffff",
-      padding: "20px",
-      "line-height": "1.7",
-      "font-family":
-        "Arial, sans-serif"
-    },
-
-    a: {
-      color: "#4dabff"
-    }
-  }
-);
-
-
-
-
-
-  
+  );  
 
   applyTheme();
 
@@ -634,43 +587,6 @@ function applyTheme() {
     darkMode
   );
 
-  themeBtn.textContent =
-    darkMode
-      ? "🌙"
-      : "☀️";
-
-  bottomThemeBtn.textContent =
-    darkMode
-      ? "🌙"
-      : "☀️";
-
-  if (!rendition)
-    return;
-
-  rendition.themes.select(
-    darkMode
-      ? "dark"
-      : "light"
-  );
-
-}
-
-
-
-
-/* =============
-function applyTheme() {
-
-  const darkMode =
-    localStorage.getItem(
-      "darkMode"
-    ) === "true";
-
-  document.body.classList.toggle(
-    "dark",
-    darkMode
-  );
-
   if (rendition) {
 
     rendition.themes.default({
@@ -701,7 +617,6 @@ function applyTheme() {
   }
 
 }
-/* =============
 
 
 /* =============
