@@ -848,6 +848,23 @@ menuBtn.addEventListener(
       "active"
     );
 
+    const isOpen =
+      sidebar.classList.contains(
+        "active"
+      );
+
+    menuBtn.textContent =
+      isOpen
+        ? "✕"
+        : "☰";
+
+    bottomMenuBtn.textContent =
+      isOpen
+        ? "✕"
+        : "☰";
+
+    showControls();
+
   }
 );
 
