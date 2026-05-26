@@ -800,40 +800,65 @@ function renderSearchResults(
 }
 
 
-/* ==========
-   EVENTS
-========== */
 
-menuBtn.addEventListener(
-  "click",
-  () => {
+/* ====================
+   UPDATE MENU ICONS
+==================== */
 
-    sidebar.classList.toggle(
+function updateMenuButtons() {
+
+  const isOpen =
+    sidebar.classList.contains(
       "active"
     );
 
-    const isOpen =
-      sidebar.classList.contains(
-        "active"
-      );
+  const icon =
+    isOpen
+      ? "✕"
+      : "☰";
 
-    menuBtn.textContent =
-      isOpen
-        ? "✕"
-        : "☰";
+  menuBtn.textContent =
+    icon;
 
-    bottomMenuBtn.textContent =
-      isOpen
-        ? "✕"
-        : "☰";
+  bottomMenuBtn.textContent =
+    icon;
 
-    showControls();
+}
 
-  }
+/* =================
+   TOGGLE SIDEBAR
+================= */
+
+function toggleSidebar() {
+
+  sidebar.classList.toggle(
+    "active"
+  );
+
+  updateMenuButtons();
+
+  showControls();
+
+}
+
+/* ==============
+   MENU EVENTS
+============== */
+
+menuBtn.addEventListener(
+  "click",
+  toggleSidebar
+);
+
+bottomMenuBtn.addEventListener(
+  "click",
+  toggleSidebar
 );
 
 
-
+/* =============
+   OTHER EVENTS
+============= */
 
 themeBtn.addEventListener(
   "click",
@@ -842,7 +867,7 @@ themeBtn.addEventListener(
     const darkMode =
       localStorage.getItem(
         "darkMode"
-      ) === "true";
+      ) == "true";
 
     localStorage.setItem(
       "darkMode",
@@ -853,9 +878,6 @@ themeBtn.addEventListener(
 
   }
 );
-
-
-
 
 nextPage.addEventListener(
   "click",
@@ -919,15 +941,6 @@ bottomIncreaseFont.addEventListener(
       "fontSize",
       fontSize
     );
-
-  }
-);
-
-bottomMenuBtn.addEventListener(
-  "click",
-  () => {
-
-    menuBtn.click();
 
   }
 );
