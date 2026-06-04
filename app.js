@@ -127,13 +127,13 @@ let controlsVisible =
 let fontSize =
   Number(
     localStorage.getItem(
-      "fontSize-beta"
+      "fontSize"
     )
   ) || 100;
 
 
 const READER_DATA_KEY =
-  "epub-beta-reader-data";
+  "epub-reader-data";
 
 /* =========================
    SAVE READER DATA
@@ -582,14 +582,6 @@ function startReader() {
         percent +
         "%";
 
-  /*
-  readingInfo.textContent =
-    chapterName +
-    " • " +
-    percent +
-    "%";
-       */
-
     }
       
  }
@@ -869,7 +861,7 @@ function applyTheme() {
 
   const darkMode =
     localStorage.getItem(
-      "darkMode-beta"
+      "darkMode"
     ) === "true";
 
   document.body.classList.toggle(
@@ -1235,35 +1227,6 @@ bottomMenuBtn.addEventListener(
 );
 
 
-
-/*
-menuBtn.addEventListener(
-  "click",
-  () => {
-
-    if (
-      sidebar.classList.contains(
-        "active"
-      )
-    ) {
-
-      closeSidebar();
-
-    }
-
-    else {
-
-      openSidebar();
-
-    }
-
-  }
-);
-*/
-
-
-
-
 /* ==========
    OTHER EVENTS
 ========== */
@@ -1274,11 +1237,11 @@ themeBtn.addEventListener(
 
     const darkMode =
       localStorage.getItem(
-        "darkMode-beta"
+        "darkMode"
       ) === "true";
 
     localStorage.setItem(
-      "darkMode-beta",
+      "darkMode",
       (!darkMode).toString()
     );
 
@@ -1312,20 +1275,6 @@ prevPage.addEventListener(
   }
 );
 
-
-/*
-bottomMenuBtn.addEventListener(
-  "click",
-  () => {
-
-    menuBtn.click();
-
-  }
-);
-
-*/
-
-
 bottomThemeBtn.addEventListener(
   "click",
   () => {
@@ -1350,7 +1299,7 @@ bottomDecreaseFont.addEventListener(
     );
 
     localStorage.setItem(
-      "fontSize-beta",
+      "fontSize",
       fontSize
     );
 
@@ -1368,7 +1317,7 @@ bottomIncreaseFont.addEventListener(
     );
 
     localStorage.setItem(
-      "fontSize-beta",
+      "fontSize",
       fontSize
     );
 
@@ -1438,7 +1387,7 @@ if (
         await navigator
           .serviceWorker
           .register(
-            "./sw-beta.js"
+            "./sw.js"
           );
 
       }
