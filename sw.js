@@ -8,18 +8,18 @@
 ===================================================== */
 
 const APP_VERSION  = "1.0.1";
-const CACHE_NAME   = `alatipha-ges-pasco-${APP_VERSION}`;
+const CACHE_NAME   = `alatipha-gespromotion-pasco-${APP_VERSION}`;
 
 const FILES_TO_CACHE = [
   "./",
   "./index.html",
   "./style.css",
   "./app.js",
-  "./sw-beta.js",
-  "./manifest-beta.json",
+  "./sw.js",
+  "./manifest.json",
   "./library/sample.epub",
-  "./icon-beta-192.png",
-  "./icon-beta-512.png",
+  "./icon-192.png",
+  "./icon-512.png",
 ];
 
 /* =========================
