@@ -1,5 +1,5 @@
 /* =====================================================
-   AlatiphA GES Pasco — Service Worker
+   GES Pasco — Service Worker
    ─────────────────────────────────────────────────
    HOW TO UPDATE:
    Bump APP_VERSION on every release (e.g. "1.0.1").
@@ -7,7 +7,7 @@
    get a "New version available" prompt on next visit.
 ===================================================== */
 
-const APP_VERSION  = "v1.0.5";
+const APP_VERSION  = "v3.0.0";
 const CACHE_NAME   = `alatipha-ges-pasco-${APP_VERSION}`;
 
 /* ====================
