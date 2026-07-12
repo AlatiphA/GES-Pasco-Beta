@@ -10,7 +10,7 @@
   />
 
   <title>
-    GES PromoHub
+    GES Promotion Aptitude Test Pasco
   </title>
 
   <link
@@ -49,134 +49,24 @@
     content="black-translucent"
   >
 
-  <!-- Apply saved library theme immediately to prevent flash -->
-  <script>
-    (function() {
-      var t = localStorage.getItem("library-theme") || "dark";
-      document.addEventListener("DOMContentLoaded", function() {
-        var lib = document.getElementById("libraryScreen");
-        if (lib) lib.setAttribute("data-theme", t);
-      });
-    })();
-  </script>
-
 </head>
 
 <body>
 
-<!-- LIBRARY SCREEN -->
-<div id="libraryScreen" class="libraryScreen">
-
-  <div class="libraryHeader">
-    <button
-      id="libraryDayNightBtn"
-      class="libraryDayNightBtn"
-      aria-label="Toggle Day/Night"
-    >
-      <i class="fa-solid fa-moon"></i>
-    </button>
-    <button
-      id="clearDataBtn"
-      class="libraryDayNightBtn"
-      aria-label="Clear App Data"
-    >
-      <i class="fa-solid fa-trash-can"></i>
-    </button>
-    <img src="icon-192.png" alt="GES PromoHub" class="libraryLogo">
-    <h1 class="libraryTitle">GES PromoHub</h1>
-    <p class="librarySubtitle">Select a book to start reading</p>
-  </div>
-
-  <div class="libraryGrid">
-
-    <div class="bookCard" data-file="./library/gespasco.epub">
-      <div class="bookCover">
-        <i class="fa-solid fa-book-open"></i>
-      </div>
-      <div class="bookInfo">
-        <div class="bookTitle">GES Promotion Aptitude Test Pasco</div>
-        <div class="bookMeta">Past Questions & Answers</div>
-      </div>
-    </div>
-
-    <div class="bookCard" data-file="./library/mat1.epub">
-      <div class="bookCover">
-        <i class="fa-solid fa-book-open"></i>
-      </div>
-      <div class="bookInfo">
-        <div class="bookTitle">Model Aptitude Test for GES 1</div>
-        <div class="bookMeta">Model Questions & Answers</div>
-      </div>
-    </div>
-
-    <div class="bookCard" data-file="./library/mat2.epub">
-      <div class="bookCover">
-        <i class="fa-solid fa-book-open"></i>
-      </div>
-      <div class="bookInfo">
-        <div class="bookTitle">Model Aptitude Test for GES 2</div>
-        <div class="bookMeta">Model Questions & Answers</div>
-      </div>
-    </div>
-
-    <div class="bookCard" data-file="./library/etmala.epub">
-      <div class="bookCover">
-        <i class="fa-solid fa-book-open"></i>
-      </div>
-      <div class="bookInfo">
-        <div class="bookTitle">Effective Teaching Methods - Overview</div>
-        <div class="bookMeta">Review, Questions & Answers</div>
-      </div>
-    </div>
-    
-    <div class="bookCard" data-file="./library/nfatfges.epub">
-      <div class="bookCover">
-        <i class="fa-solid fa-book-open"></i>
-      </div>
-      <div class="bookInfo">
-        <div class="bookTitle">Notes for Aptitude Test for GES</div>
-        <div class="bookMeta">Notes</div>
-      </div>
-    </div>
-    
-    <div class="bookCard" data-file="./library/eigala.epub">
-      <div class="bookCover">
-        <i class="fa-solid fa-book-open"></i>
-      </div>
-      <div class="bookInfo">
-        <div class="bookTitle">Education in Ghana</div>
-        <div class="bookMeta">Notes </div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- LIBRARY FOOTER -->
-  <div class="libraryFooter">
-    <a href="./faq.html" class="libraryFooterLink">
-      <i class="fa-solid fa-circle-question"></i> Help & FAQ
-    </a>
-    <span class="libraryFooterDot">·</span>
-    <span class="libraryFooterCopy">© 2026 AlatiphA</span>
-  </div>
-
-</div>
-
-<div class="app" id="readerApp" style="display:none">
+<div class="app">
 
   <header>
 
     <button
-      id="backBtn"
+      id="clearCacheBtn"
       class="iconBtn"
-      aria-label="Back to Library"
-      style="display:none"
+      aria-label="Clear App Data"
     >
-      <i class="fa-solid fa-arrow-left"></i>
+      <i class="fa-solid fa-trash-can"></i>
     </button>
 
-    <h1 class="title" id="readerTitle">
-      GES PromoHub
+    <h1 class="title">
+      GES Promotion Aptitude Test Pasco
     </h1>
 
     <button
@@ -250,19 +140,19 @@
 
     <img
       src="icon-192.png"
-      alt="GES PromoHub Icon"
+      alt="GES Pasco Icon"
       class="aboutIcon"
     >
 
     <div class="aboutText">
 
       <strong>
-        GES PromoHub
+        GES Promotion Aptitude Test Pasco
       </strong>
 
       <br>
 
-      ©️ All Rights Reserved | 2026 Edition · <span id="appVersion">v1.4.0</span>
+      ©️ All Rights Reserved | 2026 Edition · <span id="appVersion">v3.0.7</span>
 
       <br>
 
@@ -280,7 +170,7 @@
     <span class="sidebarFooterDot">·</span>
     <span class="sidebarFooterCopy">© 2026 AlatiphA</span>
   </div>
-  
+
   </aside>
 
   <main>
@@ -429,8 +319,6 @@
 <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/epubjs/dist/epub.min.js"></script>
-
-
 
 <script src="./app.js"></script>
 <script src="./install.js"></script>

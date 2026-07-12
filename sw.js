@@ -1,14 +1,14 @@
 /* =====================================================
-   AlatiphA GES PromoHub— Service Worker
+   GES Pasco — Service Worker
    ─────────────────────────────────────────────────
    HOW TO UPDATE:
-   Bump APP_VERSION on every release (e.g. "1.0.5").
+   Bump APP_VERSION on every release (e.g. "1.0.1").
    The cache name updates automatically. Users will
    get a "New version available" prompt on next visit.
 ===================================================== */
 
-const APP_VERSION  = "v1.4.1";
-const CACHE_NAME   = `alatipha-ges-promohub-${APP_VERSION}`;
+const APP_VERSION  = "v3.0.8";
+const CACHE_NAME   = `alatipha-ges-pasco-${APP_VERSION}`;
 
 /* ====================
    APP SHELL
@@ -22,12 +22,7 @@ const FILES_TO_CACHE = [
   "./app.js",
   "./sw.js",
   "./manifest.json",
-  "./library/gespasco.epub",
-  "./library/mat1.epub",
-  "./library/mat2.epub",
-  "./library/etmala.epub",
-  "./library/nfatfges.epub",
-  "./library/eigala.epub",
+  "./library/sample.epub",
   "./icon-192.png",
   "./icon-512.png",
   "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css",
