@@ -150,16 +150,12 @@ let fontSize =
     )
   ) || 100;
 
-let fontFamily =
-  localStorage.getItem("fontFamily") ||
-  "serif";
-
 
 /* =========================
    APP VERSION
    Change this on every release
 ========================= */
-const APP_VERSION = "3.1.4";
+const APP_VERSION = "3.0.7";
 
 const versionEl =
   document.getElementById(
@@ -770,29 +766,7 @@ function startReader() {
     );
 
   /* FONT & THEME */
-
-  /* Inject custom @font-face into every epub chapter iframe */
-  rendition.hooks.content.register(contents => {
-    const base = window.location.href.replace(/\/[^/]*$/, "");
-    const fontCSS = `
-      @font-face {
-        font-family: 'Merriweather';
-        src: url('${base}/fonts/Merriweather-VariableFont_opsz_wdth_wght.ttf') format('truetype');
-        font-weight: 100 900;
-      }
-      @font-face {
-        font-family: 'Open Sans';
-        src: url('${base}/fonts/OpenSans-VariableFont_wdth_wght.ttf') format('truetype');
-        font-weight: 100 900;
-      }
-    `;
-    const doc = contents.document;
-    const style = doc.createElement("style");
-    style.id = "custom-fonts";
-    style.textContent = fontCSS;
-    doc.head.appendChild(style);
-  });
-
+  
   rendition.themes.fontSize(
     fontSize + "%"
   );
@@ -1307,11 +1281,11 @@ function applyTheme(theme) {
 
   rendition.themes.default({
     body: {
-      background:    t.bg,
-      color:         t.color,
-      padding:       "20px",
-      "line-height": "1.7",
-      "font-family": fontFamily,
+      background:   t.bg,
+      color:        t.color,
+      padding:      "20px",
+      "line-height":"1.7",
+      "font-family":"Arial, sans-serif",
     },
     a: { color: t.link },
   });
@@ -1669,7 +1643,6 @@ const themePicker =
 
 function toggleThemePicker() {
   themePicker.classList.toggle("open");
-  fontPicker.classList.remove("open");
 }
 
 function closeThemePicker() {
@@ -1688,77 +1661,9 @@ themeBtn.addEventListener(
 [leftZone, centerZone, rightZone].forEach(
   zone => zone.addEventListener(
     "click",
-    () => {
-      closeThemePicker();
-      closeFontPicker();
-    }
+    () => closeThemePicker()
   )
 );
-
-/* =========================
-   FONT PICKER
-========================= */
-
-const fontPicker =
-  document.getElementById("fontPicker");
-
-const fontPickerBtn =
-  document.getElementById("fontPickerBtn");
-
-function applyFont(font) {
-  fontFamily = font;
-  localStorage.setItem("fontFamily", font);
-
-  /* Mark active option */
-  document.querySelectorAll(".fontOption")
-    .forEach(btn => {
-      btn.classList.toggle(
-        "active",
-        btn.dataset.font === font
-      );
-    });
-
-  /* Apply to rendition if reader is open */
-  if (rendition) {
-    /* Update themes.default so new chapters get it */
-    applyTheme();
-
-    /* Also directly update all currently loaded iframes */
-    rendition.getContents().forEach(contents => {
-      const doc = contents.document;
-      if (doc && doc.body) {
-        doc.body.style.fontFamily = font;
-      }
-    });
-  }
-}
-
-function toggleFontPicker() {
-  fontPicker.classList.toggle("open");
-  closeThemePicker();
-}
-
-function closeFontPicker() {
-  fontPicker.classList.remove("open");
-}
-
-if (fontPickerBtn) {
-  fontPickerBtn.addEventListener("click", e => {
-    e.stopPropagation();
-    toggleFontPicker();
-  });
-}
-
-document.querySelectorAll(".fontOption")
-  .forEach(btn => {
-    btn.addEventListener("click", () => {
-      applyFont(btn.dataset.font);
-      closeFontPicker();
-    });
-  });
-
-/* Init font active state on load */
-applyFont(fontFamily);
 
 nextPage.addEventListener(
   "click",
