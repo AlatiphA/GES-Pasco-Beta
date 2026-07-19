@@ -7,7 +7,7 @@
    get a "New version available" prompt on next visit.
 ===================================================== */
 
-const APP_VERSION  = "v3.2.3";
+const APP_VERSION  = "v3.2.4";
 const CACHE_NAME   = `alatipha-ges-pasco-${APP_VERSION}`;
 
 /* ====================
