@@ -159,7 +159,7 @@ let fontFamily =
    APP VERSION
    Change this on every release
 ========================= */
-const APP_VERSION = "3.1.9";
+const APP_VERSION = "3.2.0";
 
 const versionEl =
   document.getElementById(
@@ -769,15 +769,6 @@ function startReader() {
       }
     );
 
-  /* Intercept epub.js built-in link handler to prevent
-     footnote links from navigating the reader */
-  rendition.on("linkClicked", (href) => {
-    if (href && href.includes("#")) {
-      /* Handled by our own click listener — do nothing */
-      return false;
-    }
-  });
-
   /* FONT & THEME */
 
   /* Inject @font-face into every epub iframe with !important to override epub CSS */
@@ -929,89 +920,75 @@ function startReader() {
       else { toggleControls(); }
     }, { passive: true });
 
-    doc.querySelectorAll("a[href]")
-      .forEach(anchor => {
+    /* Use document-level capture listener so it fires BEFORE
+       epub.js's own link handler, preventing page navigation */
+    doc.addEventListener("click", e => {
 
-        anchor.addEventListener("click", e => {
+      const anchor = e.target.closest("a[href]");
+      if (!anchor) return;
 
-          /* If footnote popup open, close it and stop */
-          const existingPopup = document.getElementById("fnPopup");
-          if (existingPopup) {
-            existingPopup.remove();
-            e.preventDefault();
-            e.stopPropagation();
-            return;
-          }
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
 
-          e.preventDefault();
-          e.stopPropagation();
+      const href = anchor.getAttribute("href") || "";
 
-          const href =
-            anchor.getAttribute("href") || "";
+      const epubType = anchor.getAttribute("epub:type") || "";
+      const role = anchor.getAttribute("role") || "";
 
-          const epubType =
-            anchor.getAttribute("epub:type") || "";
+      /* Footnote ref — explicit epub:type or role */
+      const isNote =
+        epubType.includes("noteref") ||
+        role.includes("doc-noteref") ||
+        anchor.classList.contains("footnote") ||
+        anchor.classList.contains("endnote");
 
-          const role =
-            anchor.getAttribute("role") || "";
+      if (isNote && href.startsWith("#")) {
+        const el = doc.getElementById(href.slice(1));
+        if (el) { showFootnote(el); return; }
+      }
 
-          /* Footnote ref */
-          const isNote =
-            epubType.includes("noteref") ||
-            role.includes("doc-noteref") ||
-            anchor.classList.contains("footnote") ||
-            anchor.classList.contains("endnote");
+      /* Same-file fragment — treat as footnote */
+      if (href.startsWith("#")) {
+        const el = doc.getElementById(href.slice(1));
+        if (el) { showFootnote(el); return; }
+        return;
+      }
 
-          if (isNote && href.startsWith("#")) {
-            const el = doc.getElementById(href.slice(1));
-            if (el) { showFootnote(el); return; }
-          }
-
-          /* Fragment (#id) — same file footnote */
-          if (href.startsWith("#")) {
-            const el = doc.getElementById(href.slice(1));
-            if (el) showFootnote(el);
-            return;
-          }
-
-          /* Cross-file fragment link — fetch target and show popup */
-          if (href.includes("#")) {
-            const parts = href.split("#");
-            const fileHref = parts[0];
-            const fragId = parts[1];
-
-            /* Try to find the spine item and get its document */
-            const spineItem = book.spine.get(fileHref);
-            if (spineItem) {
-              spineItem.load(book.load.bind(book)).then(() => {
-                const targetDoc = spineItem.document;
-                if (targetDoc) {
-                  const el = targetDoc.getElementById(fragId);
-                  if (el) { showFootnote(el); return; }
-                }
-                /* Fallback — navigate if can't get element */
-                rendition.display(href).catch(err => console.error(err));
-              }).catch(() => {
-                rendition.display(href).catch(err => console.error(err));
-              });
-              return;
+      /* Cross-file fragment — fetch and show popup */
+      if (href.includes("#")) {
+        const parts = href.split("#");
+        const fileHref = parts[0];
+        const fragId = parts[1];
+        const spineItem = book.spine.get(fileHref);
+        if (spineItem) {
+          spineItem.load(book.load.bind(book)).then(() => {
+            const targetDoc = spineItem.document;
+            if (targetDoc) {
+              const el = targetDoc.getElementById(fragId);
+              if (el) { showFootnote(el); return; }
             }
-          }
+            rendition.display(href).catch(err => console.error(err));
+          }).catch(() => {
+            rendition.display(href).catch(err => console.error(err));
+          });
+          return;
+        }
+      }
 
-          /* External */
-          if (/^https?:\/\//.test(href)) {
-            if (confirm("Open link?\n" + href))
-              window.open(href, "_blank", "noopener");
-            return;
-          }
+      /* External link */
+      if (/^https?:\/\//.test(href)) {
+        if (confirm("Open link?\n" + href))
+          window.open(href, "_blank", "noopener");
+        return;
+      }
 
-          /* Internal chapter nav */
-          rendition.display(href)
-            .catch(err => console.error(err));
+      /* Internal chapter navigation */
+      rendition.display(href).catch(err => console.error(err));
 
-        });
+    }, true); /* capture: true — fires before epub.js */
 
-      });
+    /* Keep old per-anchor handlers removed — using doc-level above */
 
   });
 
