@@ -25,7 +25,6 @@ const FILES_TO_CACHE = [
   "./library/sample.epub",
   "./icon-192.png",
   "./icon-512.png",
-  "./fonts/Merriweather-VariableFont_opsz_wdth_wght.ttf",
   "./fonts/OpenSans-VariableFont_wdth_wght.ttf",
   "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css",
 ];
